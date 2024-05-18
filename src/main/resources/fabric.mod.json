@@ -1,0 +1,49 @@
+{
+	"schemaVersion": 1,
+	"id": "titletweaks",
+	"version": "${version}",
+	"name": "Title Tweaks",
+	"description": "Improvements to Minecraft's Titles",
+	"authors": [
+		"Microcontrollers"
+	],
+	"contributors": [
+		"Wyvest"
+
+	],
+	"contact": {
+		"homepage": "https://modrinth.com/mod/titletweaks",
+		"sources": "https://github.com/MicrocontrollersDev/TitleTweaks",
+		"issues": "https://github.com/MicrocontrollersDev/TitleTweaks/issues"
+	},
+	"license": "LGPLv3",
+	"icon": "assets/titletweaks/icon.png",
+	"environment": "client",
+	"entrypoints": {
+		"main": [
+			"dev.microcontrollers.titletweaks.TitleTweaks"
+		],
+		"modmenu": [
+			"dev.microcontrollers.titletweaks.config.ModMenuIntegration"
+		]
+	},
+	"mixins": [
+		"titletweaks.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.14",
+		"minecraft": ">=1.20 <=1.20.6",
+		"java": ">=17",
+		"fabric-api": "*",
+		"yet_another_config_lib_v3": "*"
+	},
+	"custom": {
+		"modmenu": {
+			"links": {
+				"modmenu.discord": "https://discord.gg/rejfv9kFJj",
+				"modmenu.modrinth": "https://modrinth.com/mod/titletweaks"
+			},
+			"update_checker": true
+		}
+	}
+}
