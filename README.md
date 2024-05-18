@@ -8,4 +8,8 @@ Downloads can be found on the [Modrinth page](https://modrinth.com/mod/titletwea
 
 ## Features
 
-
+- Disable Titles
+- Title Scale
+- Automatically Scale Titles
+- Title Opacity
+- Remove Title Text Shadow
