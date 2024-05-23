@@ -3,7 +3,8 @@
   "package": "dev.microcontrollers.titletweaks.mixin",
   "compatibilityLevel": "JAVA_17",
   "client": [
-    "InGameHudMixin"
+    "InGameHudMixin",
+    "MinecraftClientMixin"
   ],
   "injectors": {
     "defaultRequire": 1

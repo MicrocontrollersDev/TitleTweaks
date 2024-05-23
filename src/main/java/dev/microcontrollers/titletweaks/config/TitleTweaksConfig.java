@@ -22,6 +22,7 @@ public class TitleTweaksConfig {
     @SerialEntry public boolean autoTitleScale = true;
     @SerialEntry public float titleOpacity = 100F;
     @SerialEntry public boolean removeTextShadow = false;
+    @SerialEntry public boolean clearOnDisconnect = true;
 
     @SuppressWarnings("deprecation")
     public static Screen configScreen(Screen parent) {
@@ -63,6 +64,12 @@ public class TitleTweaksConfig {
                                 .name(Text.literal("Remove Text Shadow"))
                                 .description(OptionDescription.of(Text.of("Removes the text shadow from titles.")))
                                 .binding(defaults.removeTextShadow, () -> config.removeTextShadow, newVal -> config.removeTextShadow = newVal)
+                                .controller(TickBoxControllerBuilder::create)
+                                .build())
+                        .option(Option.createBuilder(boolean.class)
+                                .name(Text.literal("Clear on Disconnect"))
+                                .description(OptionDescription.of(Text.of("Fixes a Minecraft bug where titles fail to clear upon disconnecting from a server, potentially leaving a title to be stuck on your screen.")))
+                                .binding(defaults.clearOnDisconnect, () -> config.clearOnDisconnect, newVal -> config.clearOnDisconnect = newVal)
                                 .controller(TickBoxControllerBuilder::create)
                                 .build())
                         .build())
