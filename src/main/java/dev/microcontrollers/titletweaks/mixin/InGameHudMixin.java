@@ -70,9 +70,14 @@ public class InGameHudMixin {
         return (int) (TitleTweaksConfig.CONFIG.instance().titleOpacity / 100 * 255);
     }
 
-    @ModifyArg(method = "renderTitleAndSubtitle", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawTextWithShadow(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/text/Text;III)I"), index = 3)
-    private int modifyVerticalPosition(int y) {
+    @ModifyArg(method = methodTarget, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawTextWithShadow(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/text/Text;III)I", ordinal = 0), index = 3)
+    private int modifyTitleVerticalPosition(int y) {
         return y - TitleTweaksConfig.CONFIG.instance().titlePositionOffset;
+    }
+
+    @ModifyArg(method = methodTarget, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawTextWithShadow(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/text/Text;III)I", ordinal = 1), index = 3)
+    private int modifySubtitleVerticalPosition(int y) {
+        return y - TitleTweaksConfig.CONFIG.instance().subtitlePositionOffset;
     }
 
     @WrapOperation(method = methodTarget, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawTextWithShadow(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/text/Text;III)I"))

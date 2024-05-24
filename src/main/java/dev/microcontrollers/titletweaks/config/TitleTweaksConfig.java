@@ -22,6 +22,7 @@ public class TitleTweaksConfig {
     @SerialEntry public float titleScale = 100F;
     @SerialEntry public boolean autoTitleScale = true;
     @SerialEntry public int titlePositionOffset = 0;
+    @SerialEntry public int subtitlePositionOffset = 0;
     @SerialEntry public float titleOpacity = 100F;
     @SerialEntry public boolean removeTextShadow = false;
     @SerialEntry public boolean clearOnDisconnect = true;
@@ -54,9 +55,17 @@ public class TitleTweaksConfig {
                                 .controller(TickBoxControllerBuilder::create)
                                 .build())
                         .option(Option.createBuilder(int.class)
-                                .name(Text.literal("Vertical Position"))
-                                .description(OptionDescription.of(Text.of("Offset the vertical position by the specified number. Due to differing screen sizes, this may lead to the title going off screen on extreme values.")))
+                                .name(Text.literal("Title Vertical Position"))
+                                .description(OptionDescription.of(Text.of("Offset the vertical position of the title by the specified number. Due to differing screen sizes, this may lead to the title going off screen on extreme values.")))
                                 .binding(0, () -> config.titlePositionOffset, newVal -> config.titlePositionOffset = newVal)
+                                .controller(opt -> IntegerSliderControllerBuilder.create(opt)
+                                        .range(-100, 100)
+                                        .step(1))
+                                .build())
+                        .option(Option.createBuilder(int.class)
+                                .name(Text.literal("Subtitle Vertical Position"))
+                                .description(OptionDescription.of(Text.of("Offset the vertical position of the subtitle by the specified number. Due to differing screen sizes, this may lead to the title going off screen on extreme values.")))
+                                .binding(0, () -> config.subtitlePositionOffset, newVal -> config.subtitlePositionOffset = newVal)
                                 .controller(opt -> IntegerSliderControllerBuilder.create(opt)
                                         .range(-100, 100)
                                         .step(1))
