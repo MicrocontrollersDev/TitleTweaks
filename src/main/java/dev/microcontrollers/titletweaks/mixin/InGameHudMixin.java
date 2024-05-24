@@ -21,7 +21,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
     The code has been updated to 1.20 and with several fixes
  */
 @Mixin(InGameHud.class)
-public abstract class InGameHudMixin {
+public class InGameHudMixin {
     @Shadow
     private Text title;
     @Shadow
@@ -68,6 +68,11 @@ public abstract class InGameHudMixin {
     @ModifyArg(method = methodTarget, at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/MathHelper;clamp(III)I"), index = 2)
     private int modifyOpacity(int value) {
         return (int) (TitleTweaksConfig.CONFIG.instance().titleOpacity / 100 * 255);
+    }
+
+    @ModifyArg(method = "renderTitleAndSubtitle", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawTextWithShadow(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/text/Text;III)I"), index = 3)
+    private int modifyVerticalPosition(int y) {
+        return y - TitleTweaksConfig.CONFIG.instance().titlePositionOffset;
     }
 
     @WrapOperation(method = methodTarget, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawTextWithShadow(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/text/Text;III)I"))

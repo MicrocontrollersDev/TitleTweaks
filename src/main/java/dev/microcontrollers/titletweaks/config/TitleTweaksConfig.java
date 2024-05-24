@@ -2,6 +2,7 @@ package dev.microcontrollers.titletweaks.config;
 
 import dev.isxander.yacl3.api.*;
 import dev.isxander.yacl3.api.controller.FloatSliderControllerBuilder;
+import dev.isxander.yacl3.api.controller.IntegerSliderControllerBuilder;
 import dev.isxander.yacl3.api.controller.TickBoxControllerBuilder;
 import dev.isxander.yacl3.config.v2.api.ConfigClassHandler;
 import dev.isxander.yacl3.config.v2.api.SerialEntry;
@@ -20,6 +21,7 @@ public class TitleTweaksConfig {
     @SerialEntry public boolean disableTitles = false;
     @SerialEntry public float titleScale = 100F;
     @SerialEntry public boolean autoTitleScale = true;
+    @SerialEntry public int titlePositionOffset = 0;
     @SerialEntry public float titleOpacity = 100F;
     @SerialEntry public boolean removeTextShadow = false;
     @SerialEntry public boolean clearOnDisconnect = true;
@@ -50,6 +52,14 @@ public class TitleTweaksConfig {
                                 .description(OptionDescription.of(Text.of("Scale titles automatically if they go past the edges of your screen.")))
                                 .binding(defaults.autoTitleScale, () -> config.autoTitleScale, newVal -> config.autoTitleScale = newVal)
                                 .controller(TickBoxControllerBuilder::create)
+                                .build())
+                        .option(Option.createBuilder(int.class)
+                                .name(Text.literal("Vertical Position"))
+                                .description(OptionDescription.of(Text.of("Offset the vertical position by the specified number. Due to differing screen sizes, this may lead to the title going off screen on extreme values.")))
+                                .binding(0, () -> config.titlePositionOffset, newVal -> config.titlePositionOffset = newVal)
+                                .controller(opt -> IntegerSliderControllerBuilder.create(opt)
+                                        .range(-100, 100)
+                                        .step(1))
                                 .build())
                         .option(Option.createBuilder(float.class)
                                 .name(Text.literal("Title Opacity"))
