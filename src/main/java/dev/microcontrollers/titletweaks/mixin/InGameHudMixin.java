@@ -32,6 +32,12 @@ public class InGameHudMixin {
     //#else
     //$$ private final String methodTarget = "render";
     //#endif
+    @Unique
+    //#if MC >= 1.20.6
+    private final int offset = 0;
+    //#else
+    //$$ private final int offset = 1;
+    //#endif
 
     // from Easeify
     @ModifyExpressionValue(method = methodTarget, at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/MathHelper;clamp(III)I"))
@@ -70,12 +76,12 @@ public class InGameHudMixin {
         return (int) (TitleTweaksConfig.CONFIG.instance().titleOpacity / 100 * 255);
     }
 
-    @ModifyArg(method = methodTarget, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawTextWithShadow(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/text/Text;III)I", ordinal = 0), index = 3)
+    @ModifyArg(method = methodTarget, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawTextWithShadow(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/text/Text;III)I", ordinal = 0 + offset), index = 3)
     private int modifyTitleVerticalPosition(int y) {
         return y - TitleTweaksConfig.CONFIG.instance().titlePositionOffset;
     }
 
-    @ModifyArg(method = methodTarget, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawTextWithShadow(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/text/Text;III)I", ordinal = 1), index = 3)
+    @ModifyArg(method = methodTarget, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawTextWithShadow(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/text/Text;III)I", ordinal = 1 + offset), index = 3)
     private int modifySubtitleVerticalPosition(int y) {
         return y - TitleTweaksConfig.CONFIG.instance().subtitlePositionOffset;
     }
