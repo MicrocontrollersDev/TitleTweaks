@@ -42,18 +42,24 @@ dependencies {
 	implementation(annotationProcessor(libs.mixinextras.get())!!)
 
 	val modMenuVersion = when(platform.mcVersion) {
+		12001 -> "7.2.2"
 		12004 -> "9.2.0-beta.2"
-		else -> "10.0.0-beta.1"
+		12006 -> "10.0.0-beta.1"
+		else -> "11.0.0-beta.1"
 	}
 
 	val fabricApiVersion = when(platform.mcVersion) {
+		12001 -> "0.92.1"
 		12004 -> "0.97.0"
-		else -> "0.98.0"
+		12006 -> "0.98.0"
+		else -> "0.100.1"
 	}
 
 	val yaclVersion = when(platform.mcVersion) {
+		12001 -> "3.4.2+1.20.1-fabric"
 		12004 -> "3.4.2+1.20.4-fabric"
-		else -> "3.4.2+1.20.5-fabric"
+		12006 -> "3.4.2+1.20.5-fabric"
+		else -> "3.5.0+1.21-fabric"
 	}
 
 	modImplementation("com.terraformersmc:modmenu:${modMenuVersion}")
@@ -73,5 +79,11 @@ tasks.processResources {
 tasks.jar {
 	from("LICENSE") {
 		rename { "${it}_${project.base.archivesName.get()}" }
+	}
+}
+
+configurations.all {
+	resolutionStrategy {
+		force("net.fabricmc:fabric-loader:0.15.11")
 	}
 }
