@@ -73,7 +73,7 @@ public class InGameHudMixin {
     }
 
     // from Easeify
-    @Inject(method = "renderTitleAndSubtitle", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/math/MatrixStack;scale(FFF)V", ordinal = 1, shift = At.Shift.AFTER))
+    @Inject(method = methodTarget, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/math/MatrixStack;scale(FFF)V", ordinal = 1, shift = At.Shift.AFTER))
     //#if MC >= 1.21
     private void modifySubtitleScale(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
     //#else
@@ -92,7 +92,7 @@ public class InGameHudMixin {
         return (int) (TitleTweaksConfig.CONFIG.instance().titleOpacity / 100 * 255);
     }
 
-    @ModifyArg(method = methodTarget, at = @At(value = "INVOKE", target = textTarget, ordinal = 0 + offset), index = 3)
+    @ModifyArg(method = methodTarget, at = @At(value = "INVOKE", target = textTarget, ordinal = offset), index = 3)
     private int modifyTitleVerticalPosition(int y) {
         return y - TitleTweaksConfig.CONFIG.instance().titlePositionOffset;
     }
