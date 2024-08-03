@@ -1,0 +1,19 @@
+{
+  "title-tweaks.title-tweaks": "Title Tweaks",
+  "title-tweaks.disable-titles": "Disable Titles",
+  "title-tweaks.disable-titles.description": "Remove titles entirely.",
+  "title-tweaks.title-scale": "Title Scale",
+  "title-tweaks.title-scale.description": "Set the scale for titles.",
+  "title-tweaks.automatically-scale-titles": "Automatically Scale Titles",
+  "title-tweaks.automatically-scale-titles.description": "Scale titles automatically if they go past the edges of your screen.",
+  "title-tweaks.title-vertical-position": "Title Vertical Position",
+  "title-tweaks.title-vertical-position.description": "Offset the vertical position of the title by the specified number. Due to differing screen sizes, this may lead to the title going off screen on extreme values.",
+  "title-tweaks.subtitle-vertical-position": "Subtitle Vertical Position",
+  "title-tweaks.subtitle-vertical-position.description": "Offset the vertical position of the subtitle by the specified number. Due to differing screen sizes, this may lead to the title going off screen on extreme values.",
+  "title-tweaks.title-opacity": "Title Opacity",
+  "title-tweaks.title-opacity.description": "Set the opacity for titles.",
+  "title-tweaks.remove-text-shadow": "Remove Text Shadow",
+  "title-tweaks.remove-text-shadow.description": "Removes the text shadow from titles.",
+  "title-tweaks.clear-on-disconnect": "Clear on Disconnect",
+  "title-tweaks.clear-on-disconnect.description": "Fixes a Minecraft bug where titles fail to clear upon disconnecting from a server, potentially leaving a title to be stuck on your screen."
+}
