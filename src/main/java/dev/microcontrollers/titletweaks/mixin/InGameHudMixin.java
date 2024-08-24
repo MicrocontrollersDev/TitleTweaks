@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 /*
     The following marked methods were taken from Easeify under LGPLV3
     https://github.com/Polyfrost/Easeify/blob/main/LICENSE
-    The code has been updated to 1.20 and with several fixes
+    The code has been updated to 1.20+ and with several fixes
  */
 @Mixin(InGameHud.class)
 public class InGameHudMixin {
@@ -56,11 +56,14 @@ public class InGameHudMixin {
 
     // from Easeify
     @Inject(method = methodTarget, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/math/MatrixStack;scale(FFF)V", ordinal = 0, shift = At.Shift.AFTER))
-    //#if MC >= 1.21
-    private void modifyTitleScale(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
-    //#else
-    //$$ private void modifyTitleScale(DrawContext context, float tickDelta, CallbackInfo ci) {
-    //#endif
+    private void modifyTitleScale(DrawContext context,
+            //#if MC >= 1.21
+            RenderTickCounter tickCounter,
+            //#else
+            //$$ float tickDelta,
+            //#endif
+            CallbackInfo ci
+    ) {
         float titleScale = TitleTweaksConfig.CONFIG.instance().titleScale / 100;
         // this is a check for MCCIsland's server transition effect
         if (TitleTweaksConfig.CONFIG.instance().autoTitleScale && title.toString() != null && !title.toString().equals("literal{\uE000}[style={color=white,font=mcc:gui}]")) {
@@ -74,11 +77,14 @@ public class InGameHudMixin {
 
     // from Easeify
     @Inject(method = methodTarget, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/math/MatrixStack;scale(FFF)V", ordinal = 1, shift = At.Shift.AFTER))
-    //#if MC >= 1.21
-    private void modifySubtitleScale(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
-    //#else
-    //$$ private void modifySubtitleScale(DrawContext context, float tickDelta, CallbackInfo ci) {
-    //#endif
+    private void modifySubtitleScale(DrawContext context,
+            //#if MC >= 1.21
+            RenderTickCounter tickCounter,
+            //#else
+            //$$ float tickDelta,
+            //#endif
+            CallbackInfo ci)
+    {
         float titleScale = TitleTweaksConfig.CONFIG.instance().titleScale / 100;
         final float width = MinecraftClient.getInstance().textRenderer.getWidth(subtitle) * 2.0F;
         if (width > context.getScaledWindowWidth()) {
@@ -103,22 +109,22 @@ public class InGameHudMixin {
     }
 
     @WrapOperation(method = methodTarget, at = @At(value = "INVOKE", target = textTarget))
-    //#if MC >= 1.21
-    private int renderWithoutShadow(DrawContext instance, TextRenderer textRenderer, Text text, int x, int y, int width, int color, Operation<Integer> original, @Local(ordinal = 1) int k) {
-    //#else
-    //$$ private int renderWithoutShadow(DrawContext instance, TextRenderer textRenderer, Text text, int x, int y, int color, Operation<Integer> original) {
-    //#endif
+    private int renderWithoutShadow(DrawContext instance, TextRenderer textRenderer, Text text, int x, int y, int width, int color, Operation<Integer> original
+            //#if MC >= 1.21
+            , @Local(ordinal = 1) int k
+            //#endif
+    ) {
         if (TitleTweaksConfig.CONFIG.instance().removeTextShadow) {
             //#if MC >= 1.21
             instance.fill(x - 2, y - 2, x + width + 2, y + 9 + 2, k);
             //#endif
             return instance.drawText(textRenderer, text, x, y, color, false);
         }
-        //#if MC >= 1.21
-        return original.call(instance, textRenderer, text, x, y, width, color);
-        //#else
-        //$$ return original.call(instance, textRenderer, text, x, y, color);
-        //#endif
+        return original.call(instance, textRenderer, text, x, y,
+                //#if MC >= 1.21
+                width,
+                //#endif
+                color);
     }
 
 }

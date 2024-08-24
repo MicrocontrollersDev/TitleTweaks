@@ -38,8 +38,7 @@ loom {
 }
 
 dependencies {
-	// Mixin Extras because PGT doesn't include it
-	implementation(annotationProcessor(libs.mixinextras.get())!!)
+	include(implementation(annotationProcessor(libs.mixinextras.get())!!)!!)
 
 	val modMenuVersion = when(platform.mcVersion) {
 		12001 -> "7.2.2"
@@ -56,9 +55,9 @@ dependencies {
 	}
 
 	val yaclVersion = when(platform.mcVersion) {
-		12001 -> "3.4.2+1.20.1-fabric"
-		12004 -> "3.4.2+1.20.4-fabric"
-		12006 -> "3.4.2+1.20.5-fabric"
+		12001 -> "3.5.0+1.20.1-fabric"
+		12004 -> "3.5.0+1.20.4-fabric"
+		12006 -> "3.5.0+1.20.6-fabric"
 		else -> "3.5.0+1.21-fabric"
 	}
 

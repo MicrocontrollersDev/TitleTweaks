@@ -13,15 +13,25 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(MinecraftClient.class)
 public class MinecraftClientMixin {
-    @Shadow @Final public InGameHud inGameHud;
+    @Shadow
+    @Final
+    public InGameHud inGameHud;
 
-    //#if MC >= 1.20.6
-    @Inject(method = "disconnect(Lnet/minecraft/client/gui/screen/Screen;Z)V", at = @At("HEAD"))
-    private void clearTitles(Screen disconnectionScreen, boolean transferring, CallbackInfo ci) {
-    //#else
-    //$$ @Inject(method = "disconnect(Lnet/minecraft/client/gui/screen/Screen;)V", at = @At("HEAD"))
-    //$$ private void clearTitles(Screen disconnectionScreen, CallbackInfo ci) {
-    //#endif
+    @Inject(
+            //#if MC >= 1.20.6
+            method = "disconnect(Lnet/minecraft/client/gui/screen/Screen;Z)V",
+            //#else
+            //$$ method = "disconnect(Lnet/minecraft/client/gui/screen/Screen;)V",
+            //#endif
+            at = @At("HEAD")
+    )
+    private void clearTitles(
+            Screen disconnectionScreen,
+            //#if MC >= 1.20.6
+            boolean transferring,
+            //#endif
+            CallbackInfo ci
+    ) {
         if (TitleTweaksConfig.CONFIG.instance().clearOnDisconnect) inGameHud.clearTitle();
     }
 }
